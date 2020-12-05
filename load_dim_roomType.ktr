@@ -428,8 +428,8 @@
     <created_user>-</created_user>
     <created_date>2020/12/04 22:51:10.004</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2020/12/04 22:55:25.421</modified_date>
-    <key_for_session_key/>
+    <modified_date>2020/12/05 22:57:24.513</modified_date>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -547,7 +547,7 @@
   <order>
     <hop>
       <from>Table input</from>
-      <to>Combination lookup/update</to>
+      <to>Dimension lookup/update</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -664,8 +664,8 @@ FROM hospital.room_type
     </GUI>
   </step>
   <step>
-    <name>Combination lookup/update</name>
-    <type>CombinationLookup</type>
+    <name>Dimension lookup/update</name>
+    <type>DimensionLookup</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -678,32 +678,44 @@ FROM hospital.room_type
     <table>dim_roomtype</table>
     <connection>HospitalDW</connection>
     <commit>100</commit>
-    <cache_size>9999</cache_size>
-    <replace>N</replace>
-    <preloadCache>N</preloadCache>
-    <crc>N</crc>
-    <crcfield>hashcode</crcfield>
+    <update>Y</update>
     <fields>
       <key>
         <name>RoomTypeID</name>
         <lookup>roomTypeID</lookup>
       </key>
-      <key>
+      <date>
+        <name/>
+        <from>date_from</from>
+        <to>date_to</to>
+      </date>
+      <field>
         <name>RoomTypeName</name>
         <lookup>roomTypeName</lookup>
-      </key>
-      <key>
+        <update>Insert</update>
+      </field>
+      <field>
         <name>RoomCostPerDay</name>
         <lookup>roomTypeCostPerDay</lookup>
-      </key>
+        <update>Insert</update>
+      </field>
       <return>
         <name>roomTypeKey</name>
+        <rename/>
         <creation_method>tablemax</creation_method>
         <use_autoinc>N</use_autoinc>
+        <version>version</version>
       </return>
     </fields>
     <sequence/>
-    <last_update_field/>
+    <min_year>1900</min_year>
+    <max_year>2199</max_year>
+    <cache_size>5000</cache_size>
+    <preload_cache>N</preload_cache>
+    <use_start_date_alternative>N</use_start_date_alternative>
+    <start_date_alternative>none</start_date_alternative>
+    <start_date_field_name/>
+    <useBatch>N</useBatch>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -714,7 +726,7 @@ FROM hospital.room_type
     </remotesteps>
     <GUI>
       <xloc>400</xloc>
-      <yloc>100</yloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
